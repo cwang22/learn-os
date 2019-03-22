@@ -9,8 +9,7 @@ GDB = C:/MinGW/bin/gdb.exe
 CFLAGS = -g
 
 os-image.bin: boot/bootsect.bin kernel.bin
-	bash
-	cat $< > os-image.bin
+	echo "bash time"
 
 kernel.bin: boot/kernel_entry.o ${OBJ}
 	ld -T NUL -o kernel.tmp -Ttext 0x1000 $^
@@ -35,4 +34,5 @@ debug: os-image.bin kernel.elf
 	nasm $< -f bin -o $@
 
 clean:
-	rm *.bin *.o *.dis *.tmp -rf
+	rm -rf *.bin *.dis *.o os-image.bin *.elf
+	rm -rf kernel/*.o boot/*.bin drivers/*.o boot/*.o
